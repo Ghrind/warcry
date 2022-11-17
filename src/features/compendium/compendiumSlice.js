@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   warriors: [
-    { name: 'Morgoth' }
+    { name: 'Morgoth', cost: 45 },
+    { name: 'Volkmar', cost: 75 },
   ],
 };
 

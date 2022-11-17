@@ -1,20 +1,31 @@
 import React from 'react';
-//import logo from './logo.svg';
-//import { Counter } from './features/counter/Counter';
 import { Roster } from './features/roster/Roster';
 import { Compendium } from './features/compendium/Compendium';
-import './App.css';
 import { useSelector } from 'react-redux'
+import 'semantic-ui-css/semantic.min.css'
+import { Grid, Header } from 'semantic-ui-react'
 
 function App() {
   const state = useSelector( (state) => state);
   return (
     <div className="App">
-      <div>{JSON.stringify(state)}</div>
-      <h1>Compendium</h1>
-      <Compendium />
-      <h1>Roster</h1>
-      <Roster />
+      <Grid columns={2} divided>
+        <Grid.Row columns={1}>
+          <Grid.Column>
+            {JSON.stringify(state)}
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column>
+            <Header as="h1">Compendium</Header>
+            <Compendium />
+          </Grid.Column>
+          <Grid.Column>
+            <Header as="h1">Roster</Header>
+            <Roster />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </div>
   );
 }
