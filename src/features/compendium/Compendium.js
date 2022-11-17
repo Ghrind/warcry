@@ -6,12 +6,14 @@ export function Compendium() {
   const dispatch = useDispatch();
   return (
     <table>
-    {warriors && warriors.map( w =>
-      <tr>
-        <td>{w.name}</td>
-        <td><button onClick={ () => dispatch(addWarrior(w)) } aria-label="Add">Add</button></td>
-      </tr>
-    )}
+    <tbody>
+      {warriors && warriors.map( w =>
+        <tr>
+          <td>{w.name}</td>
+          <td><button onClick={ () => dispatch(addWarrior(w)) } aria-label="Add">Add</button></td>
+        </tr>
+      )}
+      </tbody>
     </table>
   )
 }
