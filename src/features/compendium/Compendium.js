@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { addWarrior } from '../roster/rosterSlice'
-import { setAlliance, setFaction } from './compendiumSlice'
+import { setAlliance, setFaction, loadData } from './compendiumSlice'
 import { Container, List, Button } from 'semantic-ui-react'
 
 export function Compendium() {
@@ -12,6 +12,7 @@ export function Compendium() {
   const dispatch = useDispatch();
   return (
     <Container>
+      <Button onClick={ () => dispatch(loadData()) }>Load</Button>
       <List celled horizontal>
         {alliances && alliances.map( a =>
           <List.Item>
