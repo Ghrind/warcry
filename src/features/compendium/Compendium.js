@@ -4,9 +4,10 @@ import { setAlliance, setFaction, loadData } from './compendiumSlice'
 import { Container, List, Button } from 'semantic-ui-react'
 
 export function Compendium() {
-  const alliances = useSelector( (state) => state.compendium.alliances );
+  const alliances = useSelector( (state) => [...new Set(state.compendium.warriors.map(w => w.alliance))] );
   const alliance = useSelector( (state) => state.compendium.alliance );
-  const factions = useSelector( (state) => state.compendium.factions.filter(faction => faction.alliance === alliance) );
+  const factions = useSelector( (state) => [...new Set(state.compendium.warriors.filter(warrior => warrior.alliance === alliance).map(w => w.faction))] );
+  console.log(factions)
   const faction = useSelector( (state) => state.compendium.faction );
   const warriors = useSelector( (state) => state.compendium.warriors.filter(warrior => warrior.faction === faction) );
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export function Compendium() {
       <List celled horizontal>
         {factions && factions.map( f =>
           <List.Item>
-            <Button onClick={() => dispatch(setFaction(f.name))}>{f.name}</Button>
+            <Button onClick={() => dispatch(setFaction(f))}>{f}</Button>
           </List.Item>
         )}
       </List>
