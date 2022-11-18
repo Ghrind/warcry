@@ -1,25 +1,21 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { removeWarrior } from './rosterSlice'
+import { Container, List, Button } from 'semantic-ui-react'
+import { WarriorListItem } from '../warriorListItem/WarriorListItem'
 
 export function Roster() {
   const name = useSelector( (state) => state.roster.name );
   const warriors = useSelector( (state) => state.roster.warriors );
+  const totalCost = warriors.map(w => w.cost).reduce((a, b) => a + parseInt(b), 0);
   const dispatch = useDispatch();
   return (
-    <div>
-      <h2>{name}</h2>
-      <table>
-      <tbody>
+    <Container>
+      <h2>{name} ({warriors.length} warriors | {totalCost}pts)</h2>
+      <List>
         {warriors && warriors.map( w =>
-          <tr>
-            <td>{w.id}</td>
-            <td>{w.name}</td>
-            <td><button onClick={ () => dispatch(removeWarrior(w.id))}>Remove</button></td>
-          </tr>
+          <WarriorListItem context="remove" warrior={w} />
         )}
-        </tbody>
-      </table>
-    </div>
+      </List>
+    </Container>
   )
 }
 

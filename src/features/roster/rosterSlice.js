@@ -2,9 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { v1 as uuidv1 } from 'uuid'
 
 const initialState = {
-  name: 'Warriors of the world',
+  name: 'Unnamed Roster',
   warriors: [
-    { id: 'foobard', name: 'Morgoth' }
   ],
 };
 

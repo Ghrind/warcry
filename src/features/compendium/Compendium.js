@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addWarrior } from '../roster/rosterSlice'
 import { setAlliance, setFaction, loadData } from './compendiumSlice'
 import { Container, List, Button } from 'semantic-ui-react'
+import { WarriorListItem } from '../warriorListItem/WarriorListItem'
 
 export function Compendium() {
   const alliances = useSelector( (state) => [...new Set(state.compendium.warriors.map(w => w.alliance))] );
@@ -30,21 +30,7 @@ export function Compendium() {
       </List>
       <List divided verticalAlign="middle">
         {warriors && warriors.map( w =>
-          <List.Item>
-            <List.Header>
-              {w.name}
-            </List.Header>
-            <List.Content floated="right">
-              <Button onClick={ () => dispatch(addWarrior(w)) } aria-label="Add">+{w.cost}pts</Button>
-            </List.Content>
-            <List.Content>
-              <List celled horizontal>
-                <List.Item>M: {w.move}</List.Item>
-                <List.Item>T: {w.toughness}3</List.Item>
-                <List.Item>HP: {w.hp}</List.Item>
-              </List>
-            </List.Content>
-          </List.Item>
+          <WarriorListItem warrior={w} />
         )}
       </List>
     </Container>
