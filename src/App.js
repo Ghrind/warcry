@@ -10,11 +10,6 @@ function App() {
   return (
     <div className="App">
       <Grid columns={2} divided>
-        <Grid.Row columns={1}>
-          <Grid.Column>
-            {JSON.stringify(state)}
-          </Grid.Column>
-        </Grid.Row>
         <Grid.Row>
           <Grid.Column>
             <Header as="h1">Compendium</Header>
