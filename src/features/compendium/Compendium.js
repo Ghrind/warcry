@@ -12,18 +12,19 @@ export function Compendium() {
   const dispatch = useDispatch();
   return (
     <Container>
-      <Button onClick={ () => dispatch(loadData()) }>Load</Button>
+      <Button secondary onClick={ () => dispatch(loadData()) }>Load</Button>
       <List celled horizontal>
         {alliances && alliances.map( a =>
           <List.Item>
-            <Button onClick={() => dispatch(setAlliance(a))}>{a}</Button>
+            <Button primary={alliance === a} onClick={() => dispatch(setAlliance(a))}>{a}</Button>
           </List.Item>
         )}
       </List>
+      <br />
       <List celled horizontal>
         {factions && factions.map( f =>
           <List.Item>
-            <Button onClick={() => dispatch(setFaction(f))}>{f}</Button>
+            <Button primary={faction === f} onClick={() => dispatch(setFaction(f))}>{f}</Button>
           </List.Item>
         )}
       </List>
