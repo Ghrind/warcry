@@ -7,7 +7,6 @@ export function Compendium() {
   const alliances = useSelector( (state) => [...new Set(state.compendium.warriors.map(w => w.alliance))] );
   const alliance = useSelector( (state) => state.compendium.alliance );
   const factions = useSelector( (state) => [...new Set(state.compendium.warriors.filter(warrior => warrior.alliance === alliance).map(w => w.faction))] );
-  console.log(factions)
   const faction = useSelector( (state) => state.compendium.faction );
   const warriors = useSelector( (state) => state.compendium.warriors.filter(warrior => warrior.faction === faction) );
   const dispatch = useDispatch();
