@@ -14,13 +14,17 @@ export function warriorHasKeyword(warrior, keyword) {
 }
 
 function updateLeader(state) {
-  // Leaders must have the champion runemark and not be an ally
-  var leader = state.warriors.filter(w => warriorHasKeyword(w, 'champion') && (state.faction === '' || w.faction === state.faction))[0];
+  var leader = state.warriors.filter( w => w.leader )[0]
 
   if (leader === undefined ) {
     state.faction = '';
     state.alliance = '';
-  } else {
+  }
+
+  // Leaders must have the champion runemark and not be an ally
+  var leader = state.warriors.filter(w => warriorHasKeyword(w, 'champion') && (state.faction === '' || w.faction === state.faction))[0];
+
+  if ( leader ) {
     state.faction = leader.faction;
     state.alliance = leader.alliance;
     leader.leader = true;
