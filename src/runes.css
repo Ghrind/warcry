@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'runemarks';
+  src: local('runemarks'), url(./fonts/runemarks.ttf), format('truetype');
+}
+
+.rune {
+  font-family: runemarks;
+}
