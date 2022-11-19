@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, List, Button } from 'semantic-ui-react'
+import { Container, List, Button, Header, Divider } from 'semantic-ui-react'
 import { WarriorListItem } from '../warriorListItem/WarriorListItem'
 import { warriorHasKeyword } from './rosterSlice'
 
@@ -15,6 +15,15 @@ export function Roster() {
       <h2>{roster.name} ({roster.warriors.length} warriors | {totalCost}pts)</h2>
       <h3>{roster.faction} ({roster.alliance})</h3>
       <List>
+        {totalCost <= 1000
+          ? <List.Item>
+              <List.Icon color="green" name="check circle" />
+              <List.Content>Your band is 1000pts or less</List.Content>
+            </List.Item>
+          : <List.Item>
+              <List.Icon color="red" name="exclamation circle" />
+              <List.Content>Your band is more than 1000pts</List.Content>
+            </List.Item>}
         {leader
           ? <List.Item>
               <List.Icon color="green" name="check circle" />
@@ -43,9 +52,23 @@ export function Roster() {
               <List.Content>Your band has more than 2 allies</List.Content>
             </List.Item>}
       </ List>
-      <br />
+      <Header as="h4">Heroes</Header>
       <List>
-        {roster.warriors && roster.warriors.map( w =>
+        {champions.filter(w => !allies.includes(w)).map( w =>
+          <WarriorListItem context="remove" warrior={w} />
+        )}
+      </List>
+      <Divider />
+      <Header as="h4">Warriors</Header>
+      <List>
+        {roster.warriors.filter(w => !champions.includes(w) && !allies.includes(w)).map( w =>
+          <WarriorListItem context="remove" warrior={w} />
+        )}
+      </List>
+      <Divider />
+      <Header as="h4">Allies</Header>
+      <List>
+        {allies.map( w =>
           <WarriorListItem context="remove" warrior={w} />
         )}
       </List>
