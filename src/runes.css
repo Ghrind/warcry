@@ -1,8 +1,8 @@
 @font-face {
-  font-family: 'runemarks';
-  src: local('runemarks'), url(./fonts/runemarks.ttf), format('truetype');
+  font-family: 'warcry';
+  src: local('warcry'), url(./fonts/warcry.ttf), format('truetype');
 }
 
 .rune {
-  font-family: runemarks;
+  font-family: warcry;
 }
