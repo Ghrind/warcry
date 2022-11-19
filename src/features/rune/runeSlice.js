@@ -27,6 +27,8 @@ const initialState = {
     warrior: '',
     ferocious: '',
     frenzied: '',
+    axe: '',
+    destroyer: '',
   }
 };
 
