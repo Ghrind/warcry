@@ -5,11 +5,21 @@ import { Rune } from '../rune/Rune'
 import { warriorHasKeyword } from '../roster/rosterSlice'
 
 function warriorIsSelectable(roster, warrior) {
+  // Same faction
   if (roster.faction === '' || warrior.faction === roster.faction) {
     return true
   }
 
+  // Allies
   if (warriorHasKeyword(warrior, 'champion') && warrior.alliance === roster.alliance) {
+    return true
+  }
+
+  // Bladeborn fighters can be added when they're from the same faction or as
+  // allies if they are champions (in that case they fall in one of the
+  // previous cases) or if their champion is in the roster.
+  const availableBladeborn = roster.warriors.filter(w => warriorHasKeyword(w, 'champion')).map(w => w.bladeborn).filter(b => b !== '')
+  if (availableBladeborn.includes(warrior.bladeborn)) {
     return true
   }
 
@@ -59,6 +69,8 @@ export function WarriorListItem(props) {
             <List.Item><Rune name="damage" /> {props.warrior.attack2_damage}</List.Item>
           </List>
         }
+        { props.warrior.bladeborn !== '' &&
+          <span>Bladeborn: {props.warrior.bladeborn}</span> }
       </List.Content>
     </List.Item>
   )

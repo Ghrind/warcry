@@ -10,6 +10,19 @@ export function Roster() {
   const leader = roster.warriors.filter(w => w.leader)[0]
   const champions = roster.warriors.filter(w => warriorHasKeyword(w, 'champion'))
   const allies = roster.warriors.filter(w => w.faction !== roster.faction)
+
+  // Bladeborn fighters without a champion mark can only be added as allies if
+  // a the bladeborn champion has been added. And in that case they don't
+  // count toward the allies limit.
+  const alliesForLimit = allies.filter(w => warriorHasKeyword(w, 'champion'))
+
+  const availableBladeborn = roster.warriors.filter(w => warriorHasKeyword(w, 'champion')).map(w => w.bladeborn).filter(b => b !== '')
+
+  // Detects bladeborn fighters that are no more valid in the roster. IE: when
+  // they've been added when they champion was in the roster and their champion
+  // was then removed from the roster.
+  const illicitBladebornFighters = roster.warriors.some(w => w.faction !== roster.faction && w.bladeborn !== '' && !availableBladeborn.includes(w.bladeborn))
+
   return (
     <Container>
       <h2>{roster.name} ({roster.warriors.length} warriors | {totalCost}pts)</h2>
@@ -42,7 +55,7 @@ export function Roster() {
               <List.Icon color="red" name="exclamation circle" />
               <List.Content>Your band has more than 3 heroes</List.Content>
             </List.Item>}
-        {allies.length <= 2
+        {alliesForLimit.length <= 2
           ? <List.Item>
               <List.Icon color="green" name="check circle" />
               <List.Content>Your band has 2 allies or less</List.Content>
@@ -51,6 +64,11 @@ export function Roster() {
               <List.Icon color="red" name="exclamation circle" />
               <List.Content>Your band has more than 2 allies</List.Content>
             </List.Item>}
+         {illicitBladebornFighters &&
+           <List.Item>
+             <List.Icon color="red" name="exclamation circle" />
+             <List.Content>You include bladeborn fighters without including their champion</List.Content>
+           </List.Item>}
       </ List>
       <Header as="h4">Heroes</Header>
       <List>

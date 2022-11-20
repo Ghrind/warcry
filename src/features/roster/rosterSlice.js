@@ -10,7 +10,11 @@ const initialState = {
 };
 
 export function warriorHasKeyword(warrior, keyword) {
-  return warrior.keywords.split(',').map( kw => kw.toLowerCase() ).includes(keyword);
+  if (warrior.keywords === undefined) {
+    return false
+  }
+  const keywords = warrior.keywords.split(',').map( kw => kw.toLowerCase() )
+  return keywords.includes(keyword);
 }
 
 function updateLeader(state) {
