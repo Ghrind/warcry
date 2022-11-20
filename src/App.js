@@ -6,7 +6,6 @@ import 'semantic-ui-css/semantic.min.css'
 import { Grid, Header } from 'semantic-ui-react'
 
 function App() {
-  const state = useSelector( (state) => state);
   return (
     <div className="App">
       <Grid columns={2} divided>
